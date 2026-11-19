@@ -54,6 +54,7 @@ def running_source(port=0):
     server=ThreadingHTTPServer(("0.0.0.0",port),Handler)
     worker=threading.Thread(target=server.serve_forever,daemon=True)
     worker.start()
+    source.base=f"http://127.0.0.1:{server.server_port}"
     if hasattr(source,"start"):source.start()
     try:yield f"http://127.0.0.1:{server.server_port}",source
     finally:
